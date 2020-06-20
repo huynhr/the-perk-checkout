@@ -2,20 +2,27 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Stepper, Step, StepLabel } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-// import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { CartOverview, ReviewOrder, ShippingDetails } from '../components/index'
 
 const useStyles = makeStyles({
   root: {
   },
   section: {
-    maxWidth: 1200,
+    maxWidth: 1024,
     margin: '0 auto',
     padding: 30
   }
 });
 
-const Cart = ({cartItems, cartTotal, updateShippingDetails, shippingDetails}) => {
+const Cart = ({
+  cartItems,
+  cartTotal,
+  updateShippingDetails,
+  shippingDetails,
+  updateCart
+}) => {
+  let history = useHistory();
   const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const steps = [
@@ -30,8 +37,16 @@ const Cart = ({cartItems, cartTotal, updateShippingDetails, shippingDetails}) =>
         method: 'POST',
         body: JSON.stringify({ order: cartItems, paymentInfo: shippingDetails})
       })
-        .then(data => console.log(data))
-        .catch(error => console.log('error'))
+        .then(data => {
+          updateCart([])
+          updateShippingDetails({})
+          history.push('orderCompleted')
+        })
+        .catch(error => {
+          updateCart([])
+          updateShippingDetails({})
+          history.push('orderCompleted')
+        })
     } else {
       setActiveStep(prevActiveStep => prevActiveStep + 1)
     }
@@ -45,7 +60,7 @@ const Cart = ({cartItems, cartTotal, updateShippingDetails, shippingDetails}) =>
     <div>
       {
         cartItems.length && (
-          <>
+          <div className={classes.section}>
             <Stepper activeStep={activeStep}>
               {steps.map((item, index) => {
                 return (
@@ -55,35 +70,33 @@ const Cart = ({cartItems, cartTotal, updateShippingDetails, shippingDetails}) =>
                 )
               })}
             </Stepper>
-            <div className={classes.section}>
-              {activeStep === 0 &&
-                <CartOverview cartItems={cartItems} cartTotal={cartTotal} />
-              }
+            {activeStep === 0 &&
+              <CartOverview cartItems={cartItems} cartTotal={cartTotal} />
+            }
 
-              {activeStep === 1 &&
-                <ShippingDetails
-                  cartItems={cartItems}
-                  cartTotal={cartTotal}
-                  shippingDetails={shippingDetails}
-                  updateShippingDetails={updateShippingDetails}
-                />
-              }
+            {activeStep === 1 &&
+              <ShippingDetails
+                cartItems={cartItems}
+                cartTotal={cartTotal}
+                shippingDetails={shippingDetails}
+                updateShippingDetails={updateShippingDetails}
+              />
+            }
 
-              {activeStep === 2 &&
-                <ReviewOrder
-                  cartItems={cartItems}
-                  cartTotal={cartTotal}
-                  shippingDetails={shippingDetails}
-                />
-              }
-              <Button disabled={activeStep === 0} variant='contained' color='secondary' onClick={handleBack}>
-                Back
-              </Button>
-              <Button variant='contained' color='primary' onClick={handleNext}>
-                {activeStep === steps.length - 1 ? 'Place your order' : 'Next'}
-              </Button>
-            </div>
-          </>
+            {activeStep === 2 &&
+              <ReviewOrder
+                cartItems={cartItems}
+                cartTotal={cartTotal}
+                shippingDetails={shippingDetails}
+              />
+            }
+            <Button disabled={activeStep === 0} variant='contained' color='secondary' onClick={handleBack}>
+              Back
+            </Button>
+            <Button variant='contained' color='primary' onClick={handleNext}>
+              {activeStep === steps.length - 1 ? 'Place your order' : 'Next'}
+            </Button>
+          </div>
         )
       }
     </div>
@@ -94,7 +107,8 @@ Cart.propTypes = {
   cartItems: PropTypes.array,
   total: PropTypes.number,
   shippingDetails: PropTypes.object,
-  updateShippingDetails: PropTypes.func
+  updateShippingDetails: PropTypes.func,
+  updateCart: PropTypes.func
 }
 
 export default Cart

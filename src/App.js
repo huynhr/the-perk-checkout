@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
 import './App.css'
 import { MenuBar } from './components/index'
-import { Cart, Home } from './pages/index'
+import { Cart, Home, OrderCompleted } from './pages/index'
 
 /**
  * Task:
@@ -52,6 +52,7 @@ function App() {
   }, [cart])
 
   console.log('shipping details: ', shippingDetails)
+  console.log('cart: ', cart)
 
   return (
     <Router>
@@ -66,6 +67,7 @@ function App() {
             updateShippingDetails={updateShippingDetails}
           />
         </Route>
+        <Route path='/orderCompleted'><OrderCompleted /></Route>
         <Route path='/'>
           <Home
             products={products}
