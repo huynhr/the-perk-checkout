@@ -20,6 +20,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [cart, updateCart] = useState([])
   const [cartTotal, updateCartTotal] = useState(0)
+  const [shippingDetails, updateShippingDetails] = useState({})
 
   const getProducts = async () => {
     setIsLoading(true)
@@ -50,12 +51,20 @@ function App() {
     updateCartTotal(calculateTotal(cart))
   }, [cart])
 
+  console.log('shipping details: ', shippingDetails)
+
   return (
     <Router>
       <MenuBar cart={cart} cartTotal={cartTotal} />
       <Switch>
         <Route path='/cart'>
-          <Cart cartItems={cart} updateCart={updateCart} cartTotal={cartTotal} />
+          <Cart
+            cartItems={cart}
+            updateCart={updateCart}
+            cartTotal={cartTotal}
+            shippingDetails={shippingDetails}
+            updateShippingDetails={updateShippingDetails}
+          />
         </Route>
         <Route path='/'>
           <Home
