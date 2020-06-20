@@ -55,7 +55,7 @@ function App() {
       <MenuBar cart={cart} cartTotal={cartTotal} />
       <Switch>
         <Route path='/cart'>
-          <Cart cart={cart} updateCart={updateCart} />
+          <Cart cartItems={cart} updateCart={updateCart} cartTotal={cartTotal} />
         </Route>
         <Route path='/'>
           <Home
