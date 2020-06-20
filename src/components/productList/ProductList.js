@@ -12,19 +12,14 @@ const useStyles = makeStyles({
 
 const ProductList = ({ products, updateCart }) => {
   const classes = useStyles()
-  const generatePrice = () => {
-    return Math.ceil(Math.random() * 100)
-  }
+
   return (
     <Grid container justify='center' alignContent='center' className={classes.root} spacing={2}>
         {
           products.map(item =>
             <Grid item xs={12} sm={12} md={6} lg={3} key={item.id}>
               <Product
-                title={item.title}
-                price={generatePrice()}
-                thumbnail={item.thumbnailUrl}
-                id={item.id}
+                product={item}
                 updateCart={updateCart}
               />
             </Grid>

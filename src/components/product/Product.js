@@ -21,8 +21,9 @@ const useStyles = makeStyles({
   },
 });
 
-const Product = ({ title, thumbnail, price, id, updateCart }) => {
-  const classes = useStyles();
+const Product = ({ product, updateCart }) => {
+  const { title, thumbnailUrl, price } = product
+  const classes = useStyles()
 
   const handleAddClick = (product) => {
     updateCart((prevState) => ([
@@ -36,7 +37,7 @@ const Product = ({ title, thumbnail, price, id, updateCart }) => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={thumbnail}
+          image={thumbnailUrl}
           title={title}
         />
         <CardContent>
@@ -47,7 +48,7 @@ const Product = ({ title, thumbnail, price, id, updateCart }) => {
       </CardActionArea>
       <CardActions>
         <Typography>{`$${price}`}</Typography>
-        <Button size="small" color="primary" onClick={() => handleAddClick({title, price, id, thumbnail})}>
+        <Button size="small" color="primary" onClick={() => handleAddClick(product)}>
           Add To Cart
         </Button>
       </CardActions>
@@ -56,9 +57,11 @@ const Product = ({ title, thumbnail, price, id, updateCart }) => {
 }
 
 Product.propTypes = {
-  title: PropTypes.string,
-  thumbnail: PropTypes.string,
-  price: PropTypes.number,
+  product: PropTypes.shape({
+    title: PropTypes.string,
+    thumbnailUrl: PropTypes.string,
+    price: PropTypes.number,
+  }),
   id: PropTypes.number
 }
 

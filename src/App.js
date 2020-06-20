@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import './App.css';
-import { ProductList, MenuBar } from './components/index';
+import React, { useEffect, useState } from 'react'
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom'
+import './App.css'
+import { MenuBar } from './components/index'
+import { Cart, Home } from './pages/index'
 
 /**
  * Task:
@@ -18,6 +19,7 @@ function App() {
   const [products, updateProducts] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [cart, updateCart] = useState([])
+  const [cartTotal, updateCartTotal] = useState(0)
 
   const getProducts = async () => {
     setIsLoading(true)
@@ -26,18 +28,44 @@ function App() {
     return response.json()
   }
 
+  const generatePrice = () => {
+    return Math.ceil(Math.random() * 100)
+  }
+
   useEffect(() => {
-    getProducts().then(data => updateProducts(data.slice(0, 10)))
+    getProducts().then(data => {
+      const productsWithPrices = data.map(product => {
+        product.price = generatePrice()
+        return product
+      })
+      updateProducts(productsWithPrices.slice(0, 10))
+    })
   }, [])
 
-  console.log(cart)
+  const calculateTotal = (products) => {
+    return products.reduce((sum, prod) => sum += prod.price, 0)
+  }
+
+  useEffect(() => {
+    updateCartTotal(calculateTotal(cart))
+  }, [cart])
+
   return (
-    <div className='App'>
-      <MenuBar cart={cart} />
-      {
-        isLoading ? <CircularProgress />: <ProductList products={products} updateCart={updateCart} />
-      }
-    </div>
+    <Router>
+      <MenuBar cart={cart} cartTotal={cartTotal} />
+      <Switch>
+        <Route path='/cart'>
+          <Cart cart={cart} updateCart={updateCart} />
+        </Route>
+        <Route path='/'>
+          <Home
+            products={products}
+            updateCart={updateCart}
+            isLoading={isLoading}      
+          />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

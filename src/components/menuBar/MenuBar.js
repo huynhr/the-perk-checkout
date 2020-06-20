@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   AppBar,
@@ -7,21 +7,13 @@ import {
   Toolbar,
   Typography
 } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
-const MenuBar = ({ cart }) => {
-  const [cartTotal, updateCartTotal] = useState(0)
-
-  const calculateTotal = (products) => {
-    return products.reduce((sum, prod) => sum += prod.price, 0)
-  }
-
-  useEffect(() => {
-    updateCartTotal(calculateTotal(cart))
-  }, [cart])
+const MenuBar = ({ cart, cartTotal }) => {
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="sticky">
       <Toolbar>
         <Typography variant="h6">
           The Perk Check Out
@@ -30,16 +22,19 @@ const MenuBar = ({ cart }) => {
         <Typography>
           {cartTotal}
         </Typography>
-        <Badge badgeContent={cart.length} color="secondary">
-          <ShoppingCartIcon />
-        </Badge>
+        <Link to='/cart'>
+          <Badge badgeContent={cart.length} color="secondary">
+            <ShoppingCartIcon />
+          </Badge>
+        </Link>
       </Toolbar>
     </AppBar>
   )
 }
 
 MenuBar.propTypes = {
-  cart: PropTypes.array
+  cart: PropTypes.array,
+  cartTotal: PropTypes.number
 }
 
 export default MenuBar
