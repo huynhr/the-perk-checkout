@@ -16,8 +16,8 @@ const Home = ({ products, updateCart, isLoading }) => {
     updateCurrentProducts(products.slice((pageNumber - 1) * 10, pageNumber * 10))
   }, [products, pageNumber])
 
-  const handlePagination = async(pageNum) => {
-    await updatePageNumber(() => pageNum)
+  const handlePagination = (pageNum) => {
+    updatePageNumber(() => pageNum)
   }
 
   return isLoading ? <CircularProgress />: (
