@@ -13,8 +13,11 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    // maxWidth: 345,
-    marginBottom: 20
+    height: '100%',
+    marginBottom: 20,
+    justifyContent: 'space-between',
+    display: 'flex',
+    flexDirection: 'column'
   },
   media: {
     height: 140,
@@ -48,7 +51,7 @@ const Product = ({ product, updateCart }) => {
       </CardActionArea>
       <CardActions>
         <Typography>{`$${price}`}</Typography>
-        <Button size="small" color="primary" onClick={() => handleAddClick(product)}>
+        <Button size="small" color="primary" variant='contained' onClick={() => handleAddClick(product)}>
           Add To Cart
         </Button>
       </CardActions>

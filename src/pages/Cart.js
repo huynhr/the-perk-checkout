@@ -5,15 +5,15 @@ import { makeStyles } from '@material-ui/core/styles'
 import { useHistory } from 'react-router-dom'
 import { CartOverview, ReviewOrder, ShippingDetails } from '../components/index'
 
-const useStyles = makeStyles({
-  root: {
-  },
-  section: {
-    maxWidth: 1024,
-    margin: '0 auto',
-    padding: 30
-  }
-});
+// const useStyles = makeStyles({
+//   root: {
+//   },
+//   section: {
+//     maxWidth: 1024,
+//     margin: '0 auto',
+//     padding: 30
+//   }
+// });
 
 const Cart = ({
   cartItems,
@@ -23,7 +23,7 @@ const Cart = ({
   updateCart
 }) => {
   let history = useHistory();
-  const classes = useStyles()
+  // const classes = useStyles()
   const [activeStep, setActiveStep] = useState(0)
   const steps = [
     { name: 'Shopping Cart' },
@@ -60,7 +60,7 @@ const Cart = ({
     <div>
       {
         cartItems.length && (
-          <div className={classes.section}>
+          <div>
             <Stepper activeStep={activeStep}>
               {steps.map((item, index) => {
                 return (

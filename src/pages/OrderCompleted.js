@@ -10,7 +10,7 @@ const OrderCompleted = () => {
     </Grid>
     <Grid item>
       <Link to='/'>
-        <Button contained variant='primary'>
+        <Button variant='contained' color='primary'>
           Continue Shopping
         </Button>
       </Link>
