@@ -52,7 +52,7 @@ function App() {
         product.price = generatePrice()
         return product
       })
-      updateProducts(productsWithPrices.slice(0, 10))
+      updateProducts(productsWithPrices)
     })
   }, [])
 
@@ -63,9 +63,6 @@ function App() {
   useEffect(() => {
     updateCartTotal(calculateTotal(cart))
   }, [cart])
-
-  console.log('shipping details: ', shippingDetails)
-  console.log('cart: ', cart)
 
   return (
     <Router>
