@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
   Badge,
@@ -8,30 +9,39 @@ import {
   Grid
 } from '@material-ui/core'
 import { Link } from 'react-router-dom'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import { Money } from '../index'
+
+const useStyles = makeStyles({
+  link: {
+    color: '#FFF',
+    textDecoration: 'none'
+  },
+  shoppingIcon: {
+    color: '#FFF'
+  }
+})
 
 const MenuBar = ({ cart, cartTotal }) => {
-
+  const classes = useStyles()
   return (
     <AppBar position="sticky">
       <Toolbar>
-        <Grid container justify='space-between'>
+        <Grid container justify='space-between' alignItems='center'>
           <Grid item xs={6}>
-            <Link to='/'>
+            <Link to='/' className={classes.link}>
               <Typography variant="h6">
                   The Perk Check Out
               </Typography>
             </Link>
           </Grid>
           <Grid item={6}>
-            <Grid container>
+            <Grid container spacing={1} alignItems='center'>
               <Grid item>
-                <Typography>
-                  {cartTotal !== 0 && `$${cartTotal}`}
-                </Typography>
+                <Money price={cartTotal} />
               </Grid>
               <Grid item>
-                <Link to='/cart'>
+                <Link to='/cart' className={classes.shoppingIcon}>
                   <Badge badgeContent={cart.length} color="secondary">
                     <ShoppingCartIcon />
                   </Badge>

@@ -5,6 +5,7 @@ import HorizontalLinearStepper from './horizontalLinearStepper/HorizontalLinearS
 import CartOverview from './cartOverview/CartOverview'
 import ShippingDetails from './shippingDetails/ShippingDetails'
 import ReviewOrder from './reviewOrder/ReviewOrder'
+import Money from './money/Money'
 
 export {
   ProductList,
@@ -13,5 +14,6 @@ export {
   HorizontalLinearStepper,
   CartOverview,
   ShippingDetails,
-  ReviewOrder
+  ReviewOrder,
+  Money
 }

@@ -14,7 +14,7 @@ const ShippingDetails = ({ shippingDetails, updateShippingDetails }) => {
   return (
     <form noValidate autoComplete="off">
       <Grid container spacing={2}>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={12} md={6}>
           <TextField
             name='name'
             label='Name'
@@ -24,7 +24,7 @@ const ShippingDetails = ({ shippingDetails, updateShippingDetails }) => {
             onChange={e => handleChange(e)}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={12} md={6}>
           <TextField
             name='address'
             label="Address"

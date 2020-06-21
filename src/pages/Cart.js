@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Button, Stepper, Step, StepLabel } from '@material-ui/core'
+import { Button, Stepper, Step, StepLabel, Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { useHistory } from 'react-router-dom'
 import { CartOverview, ReviewOrder, ShippingDetails } from '../components/index'
@@ -59,7 +59,7 @@ const Cart = ({
   return (
     <div>
       {
-        cartItems.length && (
+        cartItems.length !== 0 && (
           <div>
             <Stepper activeStep={activeStep}>
               {steps.map((item, index) => {
@@ -90,12 +90,19 @@ const Cart = ({
                 shippingDetails={shippingDetails}
               />
             }
-            <Button disabled={activeStep === 0} variant='contained' color='secondary' onClick={handleBack}>
-              Back
-            </Button>
-            <Button variant='contained' color='primary' onClick={handleNext}>
-              {activeStep === steps.length - 1 ? 'Place your order' : 'Next'}
-            </Button>
+            <Grid container spacing={2}>
+              <Grid item>
+                <Button disabled={activeStep === 0} variant='contained' color='secondary' onClick={handleBack}>
+                  Back
+                </Button>
+              </Grid>  
+              <Grid item>
+                <Button variant='contained' color='primary' onClick={handleNext}>
+                  {activeStep === steps.length - 1 ? 'Place your order' : 'Next'}
+                </Button>
+              </Grid>
+            </Grid>
+
           </div>
         )
       }

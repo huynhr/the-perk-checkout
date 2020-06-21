@@ -8,8 +8,11 @@ import {
   CardContent,
   CardMedia,
   Button,
-  Typography
+  Typography,
+  Grid
 } from '@material-ui/core';
+import AttachMoneyIcon from '@material-ui/icons/AttachMoney'
+import { Money } from '../index'
 
 const useStyles = makeStyles({
   root: {
@@ -50,10 +53,16 @@ const Product = ({ product, updateCart }) => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Typography>{`$${price}`}</Typography>
-        <Button size="small" color="primary" variant='contained' onClick={() => handleAddClick(product)}>
-          Add To Cart
-        </Button>
+        <Grid container justify='space-between'>
+          <Grid item xs={6}>
+            <Money price={price}/>
+          </Grid>
+          <Grid item xs={6}>
+            <Button size="small" color="primary" variant='contained' onClick={() => handleAddClick(product)}>
+              Add To Cart
+            </Button>
+          </Grid>
+        </Grid>
       </CardActions>
     </Card>
   );

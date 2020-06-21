@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Grid, Typography, Paper, Button } from '@material-ui/core'
-// import { makeStyles } from '@material-ui/core/styles'
-import { Link } from 'react-router-dom'
+import { Grid, Typography, Paper } from '@material-ui/core'
+import { Money } from '../index'
 
 const CartOverview = ({ cartItems, cartTotal }) => {
   return (
